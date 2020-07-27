@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
+import os
 
 from security import authenticate, identity
 from resources.user import UserRegister
@@ -26,4 +27,5 @@ api.add_resource(UserRegister, '/register')
 if __name__ == '__main__':
     from db import db
     db.init_app(app)
-    app.run(port=environ.get("PORT", 5000), debug=True, host='0.0.0.0')
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True,)
